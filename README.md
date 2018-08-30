@@ -15,20 +15,20 @@ vi /etc/sysconfig/selinux
 
 ## 安装docker
 
-Docker 的 安装资源文件 存放在Amazon S3，会间歇性连接失败。所以安装Docker的时候，会比较慢。 
-你可以通过执行下面的命令，高速安装Docker。
+* Docker 的 安装资源文件 存放在Amazon S3，会间歇性连接失败。所以安装Docker的时候，会比较慢。 
+* 你可以通过执行下面的命令，高速安装Docker。
 
 ```bash
     curl -sSL https://get.daocloud.io/docker | sh
 ```
 
-你可以使用以下命令来卸载
+* 你可以使用以下命令来卸载
 
 ```bash
     sudo apt-get remove docker docker-engine
 ```
 
-卸载Docker后,/var/lib/docker/目录下会保留原Docker的镜像,网络,存储卷等文件. 如果需要全新安装Docker,需要删除/var/lib/docker/目录
+* 卸载Docker后,/var/lib/docker/目录下会保留原Docker的镜像,网络,存储卷等文件. 如果需要全新安装Docker,需要删除/var/lib/docker/目录
 
 ```bash
     rm -fr /var/lib/docker/
@@ -36,8 +36,8 @@ Docker 的 安装资源文件 存放在Amazon S3，会间歇性连接失败。�
  
 ### 安装 Docker Compose
 
-Docker Compose 存放在Git Hub，不太稳定。 
-你可以也通过执行下面的命令，高速安装Docker Compose。
+* Docker Compose 存放在Git Hub，不太稳定。 
+* 你可以也通过执行下面的命令，高速安装Docker Compose。
 
 ```bash
     curl -L https://get.daocloud.io/docker/compose/releases/download/1.22.0/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
@@ -45,7 +45,8 @@ Docker Compose 存放在Git Hub，不太稳定。
 ```
 #### Docker 加速器
 
-Docker镜像服务器在国外，会导致访问很慢，可以使用以下命令来设置加速器
+* Docker镜像服务器在国外，会导致访问很慢，可以使用以下命令来设置加速器
+
 ```bash
     curl -sSL https://get.daocloud.io/daotools/set_mirror.sh | sh -s http://e7850958.m.daocloud.io
 ```
@@ -107,6 +108,7 @@ kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/v0.10.0/Docume
 ```
 
 ## 创建dashboard
+
 ```bash
 kubectl create dashboard
 ```
@@ -116,12 +118,38 @@ kubectl -n kube-system get secret | grep kubernetes-dashboard-admin
 
 ```
 ## 生成客户端证书
+
  ```bash
 grep 'client-certificate-data' /etc/kubernetes/admin.conf | head -n 1 | awk '{print $2}' | base64 -d >> kubecfg.crt
 grep 'client-key-data' /etc/kubernetes/admin.conf | head -n 1 | awk '{print $2}' | base64 -d >> kubecfg.key
 openssl pkcs12 -export -clcerts -inkey kubecfg.key -in kubecfg.crt -out kubecfg.p12 -name "kubernetes-client"
 ```
 ## 下载证书，安装并访问 
+
 ```http request
 https://masternode:6443/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/
 ```
+
+## 允许master部署taint
+kubectl taint nodes --all node-role.kubernetes.io/master-
+
+
+
+## 开启LoadBalancer支持
+* 编辑 /etc/kubernetes/manifests/kube-controller-manager.yaml
+
+```
+spec:
+  containers:
+  - command:
+    - kube-controller-manager
+    - --cloud-provider=external
+```
+
+
+## LoadBalancer 
+kubectl run my-nginx --image=nginx --replicas=2 --port=80
+kubectl  expose deployment my-nginx --name=my-nginx --type=LoadBalance
+## 测试
+kubectl get svc
+curl http://10.245.0.1
