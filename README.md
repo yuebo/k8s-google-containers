@@ -6,6 +6,9 @@
 systemctl stop firewalld
 systemctl disable firewalld
 swapoff -a
+echo 1 > /proc/sys/net/bridge/bridge-nf-call-iptables
+echo 1 > /proc/sys/net/bridge/bridge-nf-call-ip6tables
+
 ```
 ## 关闭selinux
 
@@ -49,6 +52,10 @@ vi /etc/sysconfig/selinux
 
 ```bash
     curl -sSL https://get.daocloud.io/daotools/set_mirror.sh | sh -s http://e7850958.m.daocloud.io
+```
+
+```bash
+systemctl enable docker
 ```
 
 ## 安装kubeadm
@@ -110,7 +117,7 @@ kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/v0.10.0/Docume
 ## 创建dashboard
 
 ```bash
-kubectl create dashboard
+kubectl create -f dashboard
 ```
 ## 获取token
 ```bash
@@ -149,7 +156,7 @@ spec:
 
 ## LoadBalancer 
 kubectl run my-nginx --image=nginx --replicas=2 --port=80
-kubectl  expose deployment my-nginx --name=my-nginx --type=LoadBalance
+kubectl  expose deployment my-nginx --name=my-nginx --type=LoadBalancer
 ## 测试
 kubectl get svc
 curl http://10.245.0.1
