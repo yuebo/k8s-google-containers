@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
       - name: keepalived-cloud-provider
-        image: quay.io/munnerz/keepalived-cloud-provider:0.0.1
+        image: mooncakexyb/keepalived-cloud-provider:0.0.1
         imagePullPolicy: IfNotPresent
         env:
         - name: KEEPALIVED_NAMESPACE
@@ -31,7 +31,7 @@ spec:
         - name: KEEPALIVED_CONFIG_MAP
           value: vip-configmap
         - name: KEEPALIVED_SERVICE_CIDR
-          value: 10.245.0.0/16 # pick a CIDR that is explicitly reserved for keepalived
+          value: 192.168.154.255/25 # pick a CIDR that is explicitly reserved for keepalived
         volumeMounts:
         - name: certs
           mountPath: /etc/ssl/certs
