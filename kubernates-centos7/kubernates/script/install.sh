@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-./prepare_env.sh
-./install_docker.sh
-./install_kubeadm.sh
-./export_cert.sh
-./get_token.sh
+sh prepare_env.sh
+sh install_docker.sh
+sh install_kubeadm.sh
+sh export_cert.sh
+sh get_token.sh
