@@ -37,7 +37,9 @@ export KUBECONFIG=/etc/kubernetes/admin.conf
 echo "export KUBECONFIG=/etc/kubernetes/admin.conf" >> ~/.bash_profile
 
 kubectl apply -f ../flannel/kube-flannel.yml
-kubectl create ../dashboard
-kubectl create ../keepalived-vip
+kubectl create -f ../dashboard
+kubectl create -f ../keepalived-vip
 kubectl taint nodes --all node-role.kubernetes.io/master-
 
+sed -i '/    - kube-controller-manager/a\    - --cloud-provider=external' /etc/kubernetes/manifests/kube-controller-manager.yaml
+systemctl restart kubelet
