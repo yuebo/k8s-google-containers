@@ -79,28 +79,18 @@ systemctl enable kubelet && systemctl start kubelet
 ## 下载镜像
 
 ```bash
-docker pull mooncakexyb/kube-apiserver-amd64:v1.11.2
-docker pull mooncakexyb/kube-controller-manager-amd64:v1.11.2
-docker pull mooncakexyb/kube-scheduler-amd64:v1.11.2
-docker pull mooncakexyb/kube-proxy-amd64:v1.11.2
-docker pull mooncakexyb/pause:3.1
-docker pull mooncakexyb/etcd-amd64:3.2.18
-docker pull mooncakexyb/coredns:1.1.3
-docker pull mooncakexyb/kubernetes-dashboard-amd64:v1.10.0
-
-docker tag mooncakexyb/kube-apiserver-amd64:v1.11.2 k8s.gcr.io/kube-apiserver-amd64:v1.11.2
-docker tag mooncakexyb/kube-controller-manager-amd64:v1.11.2 k8s.gcr.io/kube-controller-manager-amd64:v1.11.2
-docker tag mooncakexyb/kube-scheduler-amd64:v1.11.2 k8s.gcr.io/kube-scheduler-amd64:v1.11.2
-docker tag mooncakexyb/kube-proxy-amd64:v1.11.2 k8s.gcr.io/kube-proxy-amd64:v1.11.2
+docker tag mooncakexyb/kube-apiserver-amd64:v1.13.0 k8s.gcr.io/kube-apiserver:v1.13.0
+docker tag mooncakexyb/kube-controller-manager-amd64:v1.13.0 k8s.gcr.io/kube-controller-manager:v1.13.0
+docker tag mooncakexyb/kube-scheduler-amd64:v1.13.0 k8s.gcr.io/kube-scheduler:v1.13.0
+docker tag mooncakexyb/kube-proxy-amd64:v1.13.0 k8s.gcr.io/kube-proxy:v1.13.0
 docker tag mooncakexyb/pause:3.1 k8s.gcr.io/pause:3.1
-docker tag mooncakexyb/etcd-amd64:3.2.18 k8s.gcr.io/etcd-amd64:3.2.18
-docker tag mooncakexyb/coredns:1.1.3 k8s.gcr.io/coredns:1.1.3
-docker tag mooncakexyb/kubernetes-dashboard-amd64:v1.10.0 k8s.gcr.io/kubernetes-dashboard-amd64:v1.10.0
-```
+docker tag mooncakexyb/etcd-amd64:3.2.24 k8s.gcr.io/etcd:3.2.24
+docker tag mooncakexyb/coredns:1.2.6 k8s.gcr.io/coredns:1.2.6
+docker tag mooncakexyb/kubernetes-dashboard-amd64:v1.10.0 k8s.gcr.io/kubernetes-dashboard-amd64:v1.10.0```
 ## 初始化master
 
 ```bash
-kubeadm init --kubernetes-version=1.11.2 --pod-network-cidr=10.244.0.0/16
+kubeadm init --kubernetes-version=1.13.0 --pod-network-cidr=10.244.0.0/16
 ```
 ## 配置KUBECONFIG
 
