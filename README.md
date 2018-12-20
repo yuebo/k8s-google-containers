@@ -36,16 +36,7 @@ vi /etc/sysconfig/selinux
 ```bash
     rm -fr /var/lib/docker/
 ```   
- 
-### 安装 Docker Compose
 
-* Docker Compose 存放在Git Hub，不太稳定。 
-* 你可以也通过执行下面的命令，高速安装Docker Compose。
-
-```bash
-    curl -L https://get.daocloud.io/docker/compose/releases/download/1.22.0/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
-    chmod +x /usr/local/bin/docker-compose
-```
 #### Docker 加速器
 
 * Docker镜像服务器在国外，会导致访问很慢，可以使用以下命令来设置加速器
@@ -86,7 +77,8 @@ docker tag mooncakexyb/kube-proxy-amd64:v1.13.0 k8s.gcr.io/kube-proxy:v1.13.0
 docker tag mooncakexyb/pause:3.1 k8s.gcr.io/pause:3.1
 docker tag mooncakexyb/etcd-amd64:3.2.24 k8s.gcr.io/etcd:3.2.24
 docker tag mooncakexyb/coredns:1.2.6 k8s.gcr.io/coredns:1.2.6
-docker tag mooncakexyb/kubernetes-dashboard-amd64:v1.10.0 k8s.gcr.io/kubernetes-dashboard-amd64:v1.10.0```
+docker tag mooncakexyb/kubernetes-dashboard-amd64:v1.10.0 k8s.gcr.io/kubernetes-dashboard-amd64:v1.10.0
+```
 ## 初始化master
 
 ```bash
@@ -142,6 +134,11 @@ spec:
     - --cloud-provider=external
 ```
 
+### 重启kubelet
+
+```bash
+systemctl restart kubelet
+```
 
 ## LoadBalancer 
 kubectl run my-nginx --image=nginx --replicas=2 --port=80
