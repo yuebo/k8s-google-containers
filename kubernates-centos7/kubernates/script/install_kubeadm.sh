@@ -21,6 +21,7 @@ docker pull mooncakexyb/pause:3.1
 docker pull mooncakexyb/etcd-amd64:3.2.24
 docker pull mooncakexyb/coredns:1.2.6
 docker pull mooncakexyb/kubernetes-dashboard-amd64:v1.10.0
+docker pull mooncakexyb/flannel:v0.10.0-amd64
 
 docker tag mooncakexyb/kube-apiserver-amd64:v1.13.0 k8s.gcr.io/kube-apiserver:v1.13.0
 docker tag mooncakexyb/kube-controller-manager-amd64:v1.13.0 k8s.gcr.io/kube-controller-manager:v1.13.0
@@ -30,6 +31,7 @@ docker tag mooncakexyb/pause:3.1 k8s.gcr.io/pause:3.1
 docker tag mooncakexyb/etcd-amd64:3.2.24 k8s.gcr.io/etcd:3.2.24
 docker tag mooncakexyb/coredns:1.2.6 k8s.gcr.io/coredns:1.2.6
 docker tag mooncakexyb/kubernetes-dashboard-amd64:v1.10.0 k8s.gcr.io/kubernetes-dashboard-amd64:v1.10.0
+docker tag mooncakexyb/flannel:v0.10.0-amd64 quay.io/coreos/flannel:v0.10.0-amd64
 
 kubeadm init --kubernetes-version=1.13.0 --pod-network-cidr=10.244.0.0/16
 
