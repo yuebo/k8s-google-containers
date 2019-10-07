@@ -42,7 +42,7 @@ vi /etc/sysconfig/selinux
 * Docker镜像服务器在国外，会导致访问很慢，可以使用以下命令来设置加速器
 
 ```bash
-    curl -sSL https://get.daocloud.io/daotools/set_mirror.sh | sh -s http://e7850958.m.daocloud.io
+    curl -sSL https://get.daocloud.io/daotools/set_mirror.sh | sh -s http://hub-mirror.c.163.com
 ```
 
 ```bash
